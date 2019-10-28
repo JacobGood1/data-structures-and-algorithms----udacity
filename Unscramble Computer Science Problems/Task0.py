@@ -6,12 +6,15 @@ import csv
 with open('texts.csv', 'r') as f:
     reader = csv.reader(f)
     texts = list(reader)
-    print(texts[0])
+    print("First record of texts, %s texts %s at time %s" % (texts[0][0], texts[0][1], texts[0][2]))
 
 with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
-    print(calls[len(calls) - 1])
+
+    last_call = calls[len(calls) - 1]
+
+    print("Last record of calls, %s calls %s at time %s, lasting %s seconds" % (last_call[0][0], last_call[0][1], last_call[0][2], last_call[0][3]))
 
 """
 TASK 0:

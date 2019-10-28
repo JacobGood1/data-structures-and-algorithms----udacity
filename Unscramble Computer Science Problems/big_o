@@ -1,0 +1,11 @@
+Task 0:
+The first problem is O(1) constant time. The reading of the files is O(n) but my solution accesses the start and end
+of the array, this means that the time will be constant no matter the input size.
+
+Task 1 - 3:
+Task 1 - 3 are linear or O(n)
+
+Task 4:
+
+This task is quadratic since it contains a loop within a loop. so for each n + 1 we have (n + 1)^2 or O(n^2)
+

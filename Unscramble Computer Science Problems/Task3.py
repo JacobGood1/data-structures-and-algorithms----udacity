@@ -16,6 +16,18 @@ def bang_call(num):
     return None
 
 
+def extract_prefix(num):
+    fixed = re.search("\([0-9]+\)", num)
+    mobile = re.search("[0-9]{4}", num)
+    tele = re.search("140[0-9]+", num)
+    if fixed:
+        return fixed.group(0)
+    elif tele:
+        return tele.group(0)
+    else:
+        return mobile.group(0)
+
+
 with open('texts.csv', 'r') as f:
     reader = csv.reader(f)
     texts = list(reader)
@@ -23,18 +35,21 @@ with open('texts.csv', 'r') as f:
 with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
+    print(calls)
     # calls format:
     # calling telephone number (string),
     # receiving telephone number (string),
     # start timestamp of telephone call (string),
     # duration of telephone call in seconds (string)
     numbers_that_received_calls = set()
-
+    code = ""
     for call, rec, _, _ in calls:
         if bang_call(call):
-            numbers_that_received_calls.add(rec)
+            code = extract_prefix(rec)
+            numbers_that_received_calls.add(code)
     numbers_that_received_calls = [x for x in numbers_that_received_calls]
     numbers_that_received_calls.sort()
+
 
     print("The numbers called by people in Bangalore have codes:")
     for i in numbers_that_received_calls:
@@ -48,7 +63,8 @@ with open('calls.csv', 'r') as f:
             total_fixed_bang_outgoing += 1
             if bang_call(r) == "fixed":
                 total_fixed_bang_incoming += 1
-    print("%s percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore." % round(total_fixed_bang_outgoing / total_fixed_bang_incoming, 2))
+    print("%s percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore." % (100.0 * round(
+        total_fixed_bang_incoming / total_fixed_bang_outgoing, 2)))
 
 # The time complexity of this is O(n), excluding lines of code other than the for loops it is roughly 4n.
 # However, since 4 is a constant we can omit the 4 and realise that the time of the algorithm increases
