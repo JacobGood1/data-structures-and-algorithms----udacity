@@ -63,6 +63,7 @@ with open('calls.csv', 'r') as f:
             total_fixed_bang_outgoing += 1
             if bang_call(r) == "fixed":
                 total_fixed_bang_incoming += 1
+    print(total_fixed_bang_incoming)
     print("%s percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore." % (100.0 * round(
         total_fixed_bang_incoming / total_fixed_bang_outgoing, 2)))
 

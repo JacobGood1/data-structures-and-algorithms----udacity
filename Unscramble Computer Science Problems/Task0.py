@@ -14,7 +14,7 @@ with open('calls.csv', 'r') as f:
 
     last_call = calls[len(calls) - 1]
 
-    print("Last record of calls, %s calls %s at time %s, lasting %s seconds" % (last_call[0][0], last_call[0][1], last_call[0][2], last_call[0][3]))
+    print("Last record of calls, %s calls %s at time %s, lasting %s seconds" % (last_call[0], last_call[1], last_call[2], last_call[3]))
 
 """
 TASK 0:
