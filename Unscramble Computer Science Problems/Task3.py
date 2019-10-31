@@ -35,7 +35,6 @@ with open('texts.csv', 'r') as f:
 with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
-    print(calls)
     # calls format:
     # calling telephone number (string),
     # receiving telephone number (string),
@@ -44,12 +43,11 @@ with open('calls.csv', 'r') as f:
     numbers_that_received_calls = set()
     code = ""
     for call, rec, _, _ in calls:
-        if bang_call(call):
+        if bang_call(call) == "fixed":
             code = extract_prefix(rec)
             numbers_that_received_calls.add(code)
     numbers_that_received_calls = [x for x in numbers_that_received_calls]
     numbers_that_received_calls.sort()
-
 
     print("The numbers called by people in Bangalore have codes:")
     for i in numbers_that_received_calls:
@@ -63,9 +61,8 @@ with open('calls.csv', 'r') as f:
             total_fixed_bang_outgoing += 1
             if bang_call(r) == "fixed":
                 total_fixed_bang_incoming += 1
-    print(total_fixed_bang_incoming)
-    print("%s percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore." % (100.0 * round(
-        total_fixed_bang_incoming / total_fixed_bang_outgoing, 2)))
+    print("%s percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore." % round(
+        100 * (total_fixed_bang_incoming / total_fixed_bang_outgoing), 2))
 
 # The time complexity of this is O(n), excluding lines of code other than the for loops it is roughly 4n.
 # However, since 4 is a constant we can omit the 4 and realise that the time of the algorithm increases
